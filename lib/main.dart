@@ -34,11 +34,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           /*3*/
-          Icon(
-            Icons.favorite,
-            color: Colors.red[500],
-          ),
-          Text('41'),
+          FavoriteWidget(),
         ],
       ),
     );
@@ -113,5 +109,47 @@ class MyApp extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorite = true;
+  int _favoriteNumber = 41;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+            padding: EdgeInsets.all(12),
+            child: IconButton(
+              icon: _isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+              onPressed: toggleFavorite,
+              color: Colors.red,
+            )),
+        SizedBox(
+          width: 18,
+          child: Container(child: Text('$_favoriteNumber')),
+        ),
+      ],
+    );
+  }
+
+  void toggleFavorite() {
+    setState(() {
+      if (_isFavorite) {
+        _favoriteNumber -= 1;
+        _isFavorite = !_isFavorite;
+      } else {
+        _favoriteNumber += 1;
+        _isFavorite = true;
+      }
+    });
   }
 }
